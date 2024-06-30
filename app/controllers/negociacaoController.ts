@@ -1,4 +1,4 @@
-import { Negociacoes } from "../models/Negociacoes.js";
+import { Negociacoes } from "../models/negociacoes";
 import { Negociacao } from "../models/negociacao.js";
 
 export class NegociacaoController {
