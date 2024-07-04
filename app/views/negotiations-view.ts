@@ -3,7 +3,7 @@ import { View } from "./view.js";
 
 export class NegotiationsView extends View<Negotiations> {
 
-    template(model: Negotiations): string {
+    protected template(model: Negotiations): string {
         return `
         <table class="table table-hover table-bordered">
             <thead>
@@ -15,16 +15,21 @@ export class NegotiationsView extends View<Negotiations> {
             </thead>
             <tbody>
                 ${model.list().map(negotiation => {
-                    return `
+            return `
                         <tr>
-                            <td>${new Intl.DateTimeFormat().format(negotiation.date)}</td>
+                            <td>${this.formatDate(negotiation.date)}</td>
                             <td>${negotiation.quantity}</td>
                             <td>${negotiation.value}</td>
                         </tr>
                     `
-                }).join('')}
+        }).join('')}
             </tbody>
         </table>
         `;
+    }
+
+    private formatDate(date: Date): string {
+        return new Intl.DateTimeFormat()
+            .format(date)
     }
 }
