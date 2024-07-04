@@ -1,9 +1,16 @@
 export class View {
-    constructor(selector) {
+    constructor(selector, skip) {
+        this.skip = false;
         this.element = document.querySelector(selector);
+        if (skip) {
+            this.skip = skip;
+        }
     }
     update(model) {
-        const template = this.template(model);
+        let template = this.template(model);
+        if (this.skip) {
+            template = template.replace(/<script>[\s\S]*?<\/script>/, '');
+        }
         this.element.innerHTML = template;
     }
 }

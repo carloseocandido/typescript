@@ -2,6 +2,7 @@ import { Negotiations } from "../models/negotiations.js";
 import { Negotiation } from "../models/negotiation.js";
 import { NegotiationsView } from "../views/negotiations-view.js";
 import { MessageView } from "../views/mensage-view.js";
+import { WeekDays } from "../enums/week-days.js";
 export class NegotiationController {
     constructor() {
         this.negotiations = new Negotiations();
@@ -13,17 +14,23 @@ export class NegotiationController {
         this.negotiationsView.update(this.negotiations);
     }
     add() {
-        const negotiation = this.createNegotiation();
-        this.negotiations.add(negotiation);
-        this.clearForm();
-        this.updateView();
+        const negotiation = Negotiation.CreateFrom(this.inputDate.value, this.inputQuantity.value, this.inputValue.value);
+        if (this.isWeekday(negotiation.date)) {
+            this.negotiations.add(negotiation);
+            this.clearForm();
+            this.updateView();
+        }
+        else {
+            this.messageView.update('Apenas negciações em dias úteis são aceitas');
+        }
     }
-    createNegotiation() {
-        const exp = /-/g;
-        const date = new Date(this.inputDate.value.replace(exp, ','));
-        const quantity = parseInt(this.inputQuantity.value);
-        const value = parseFloat(this.inputValue.value);
-        return new Negotiation(date, quantity, value);
+    isWeekday(date) {
+        const dayOfWeek = date.getDay();
+        const weekendDays = {
+            [WeekDays.Saturday]: true,
+            [WeekDays.Sunday]: true
+        };
+        return !(dayOfWeek in weekendDays);
     }
     clearForm() {
         this.inputDate.value = '';
@@ -33,6 +40,6 @@ export class NegotiationController {
     }
     updateView() {
         this.negotiationsView.update(this.negotiations);
-        this.messageView.update('Negotiation added successfully');
+        this.messageView.update('Negociação adicionada com sucesso');
     }
 }
