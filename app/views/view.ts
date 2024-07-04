@@ -1,16 +1,15 @@
 export abstract class View<T> {
     
-    protected elemento: HTMLElement;
+    protected element: HTMLElement;
 
-    constructor(seletor: string) {
-        this.elemento = document.querySelector(seletor);
+    constructor(selector: string) {
+        this.element = document.querySelector(selector);
     }
 
     update(model: T): void {
         const template = this.template(model);
-        this.elemento.innerHTML = template;
+        this.element.innerHTML = template;
     }
 
     abstract template(model: T): string;
-    
 }
