@@ -26,11 +26,7 @@ export class NegotiationController {
     }
     isWeekday(date) {
         const dayOfWeek = date.getDay();
-        const weekendDays = {
-            [WeekDays.Saturday]: true,
-            [WeekDays.Sunday]: true
-        };
-        return !(dayOfWeek in weekendDays);
+        return dayOfWeek !== WeekDays.Saturday && dayOfWeek !== WeekDays.Sunday;
     }
     clearForm() {
         this.inputDate.value = '';

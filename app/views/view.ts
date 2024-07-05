@@ -4,7 +4,12 @@ export abstract class View<T> {
     private skip = false;
 
     constructor(selector: string, skip?: boolean) {
-        this.element = document.querySelector(selector);
+        const element = document.querySelector(selector);
+        if (element) {
+            this.element = element as HTMLElement;
+        } else {
+            throw Error(`Seletor ${selector} não existe no DO. Verifique.`);
+        }
         if (skip) {
             this.skip = skip;
         }
