@@ -3,7 +3,7 @@ import { Negotiation } from "../models/negotiation.js";
 import { NegotiationsView } from "../views/negotiations-view.js";
 import { MessageView } from "../views/mensage-view.js";
 import { WeekDays } from "../enums/week-days.js";
-import { ExecutionTimeLogger } from "../decorators/executiontimelogger.js";
+import { executionTimeLogger } from "../decorators/executiontimelogger.js";
 
 export class NegotiationController {
     private inputDate: HTMLInputElement;
@@ -20,7 +20,7 @@ export class NegotiationController {
         this.negotiationsView.update(this.negotiations);
     }
 
-    @ExecutionTimeLogger()
+    @executionTimeLogger()
     public add(): void {
         const negotiation = Negotiation.CreateFrom(
             this.inputDate.value,

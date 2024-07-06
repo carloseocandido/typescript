@@ -1,8 +1,10 @@
+import { skip } from "../decorators/skip.js";
 import { Negotiations } from "../models/negotiations.js";
 import { View } from "./view.js";
 
 export class NegotiationsView extends View<Negotiations> {
 
+    @skip
     protected template(model: Negotiations): string {
         return `
         <table class="table table-hover table-bordered">

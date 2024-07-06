@@ -1,4 +1,4 @@
-export function ExecutionTimeLogger(isSeconds: boolean = false) {
+export function executionTimeLogger(isSeconds: boolean = false) {
     return function(taget: any, propertyKey: string, descriptor: PropertyDescriptor) {
         const baseMethod = descriptor.value;
         descriptor.value = function(...args: any[]) {
