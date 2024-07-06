@@ -17,7 +17,7 @@ export abstract class View<T> {
         }
     }
 
-    @ExecutionTimeLogger()
+    @ExecutionTimeLogger(true)
     public update(model: T): void {
         let template = this.template(model);
         if (this.skip) {
