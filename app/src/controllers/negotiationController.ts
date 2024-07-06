@@ -3,38 +3,52 @@ import { Negotiation } from "../models/negotiation.js";
 import { NegotiationsView } from "../views/negotiations-view.js";
 import { MessageView } from "../views/mensage-view.js";
 import { WeekDays } from "../enums/week-days.js";
+import { ExecutionTimeLogger } from "../decorators/executiontimelogger.js";
+
 export class NegotiationController {
+    private inputDate: HTMLInputElement;
+    private inputQuantity: HTMLInputElement;
+    private inputValue: HTMLInputElement;
+    private negotiations = new Negotiations();
+    private negotiationsView = new NegotiationsView('#negotiationsView');
+    private messageView = new MessageView('#messageView');
+
     constructor() {
-        this.negotiations = new Negotiations();
-        this.negotiationsView = new NegotiationsView('#negotiationsView');
-        this.messageView = new MessageView('#messageView');
-        this.inputDate = document.querySelector('#date');
-        this.inputQuantity = document.querySelector('#quantity');
-        this.inputValue = document.querySelector('#value');
+        this.inputDate = document.querySelector('#date') as HTMLInputElement;
+        this.inputQuantity = document.querySelector('#quantity') as HTMLInputElement;
+        this.inputValue = document.querySelector('#value') as HTMLInputElement;
         this.negotiationsView.update(this.negotiations);
     }
-    add() {
-        const negotiation = Negotiation.CreateFrom(this.inputDate.value, this.inputQuantity.value, this.inputValue.value);
+
+    @ExecutionTimeLogger()
+    public add(): void {
+        const negotiation = Negotiation.CreateFrom(
+            this.inputDate.value,
+            this.inputQuantity.value,
+            this.inputValue.value
+        );
         if (this.isWeekday(negotiation.date)) {
             this.negotiations.add(negotiation);
             this.clearForm();
             this.updateView();
-        }
-        else {
+        } else {
             this.messageView.update('Apenas negciações em dias úteis são aceitas');
         }
     }
-    isWeekday(date) {
+
+    private isWeekday(date: Date): boolean {
         const dayOfWeek = date.getDay();
         return dayOfWeek !== WeekDays.Saturday && dayOfWeek !== WeekDays.Sunday;
     }
-    clearForm() {
+
+    private clearForm(): void {
         this.inputDate.value = '';
         this.inputQuantity.value = '';
         this.inputValue.value = '';
         this.inputDate.focus();
     }
-    updateView() {
+
+    private updateView(): void {
         this.negotiationsView.update(this.negotiations);
         this.messageView.update('Negociação adicionada com sucesso');
     }

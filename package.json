@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "lite-server --baseDir=dist",
+    "server": "lite-server --baseDir=app/dist",
     "start": "concurrently \"npm run watch\" \"npm run server\"",
     "compile": "tsc",
     "watch": "tsc -w"
@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.6.0",
     "concurrently": "^6.0.0",
     "eslint": "^9.6.0",
     "globals": "^15.8.0",
