@@ -18,4 +18,17 @@ export class Negotiation {
     get volume() {
         return this.quantity * this.value;
     }
+    toText() {
+        return `
+            Data: ${this.date},
+            Quantidade: ${this.quantity},
+            Valor: ${this.value}
+        `;
+    }
+    isEqual(negotiation) {
+        return this.date.getDate() === negotiation.date.getDate()
+            && this.date.getMonth() === negotiation.date.getMonth()
+            && this.date.getFullYear() === negotiation.date.getFullYear();
+    }
 }
+//# sourceMappingURL=negotiation.js.map

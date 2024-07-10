@@ -1,4 +1,5 @@
-export class Negotiation {
+import { Model } from "../intefaces/model.js";
+export class Negotiation implements Model<Negotiation> {
 
     constructor(
         private _date: Date, 
@@ -13,7 +14,7 @@ export class Negotiation {
         const value = parseFloat(valueString);
         return new Negotiation(date, quantity, value);
     }
-
+    
     get date(): Date {
         const date = new Date(this._date.getTime());
         return date;
@@ -22,4 +23,19 @@ export class Negotiation {
     get volume(): number {
         return this.quantity * this.value;
     }
+
+    public toText(): string {
+        return `
+            Data: ${this.date},
+            Quantidade: ${this.quantity},
+            Valor: ${this.value}
+        `;
+    }
+
+    public isEqual(negotiation: Negotiation): boolean {
+        return this.date.getDate() === negotiation.date.getDate()
+         && this.date.getMonth() === negotiation.date.getMonth()
+         && this.date.getFullYear() === negotiation.date.getFullYear();
+    }
+
 }

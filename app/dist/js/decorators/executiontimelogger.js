@@ -1,4 +1,4 @@
-export function ExecutionTimeLogger(isSeconds = false) {
+export function executionTimeLogger(isSeconds = false) {
     return function (taget, propertyKey, descriptor) {
         const baseMethod = descriptor.value;
         descriptor.value = function (...args) {
@@ -11,9 +11,9 @@ export function ExecutionTimeLogger(isSeconds = false) {
             const startTime = performance.now();
             const result = baseMethod.apply(this, args);
             const endTime = performance.now();
-            console.log(`${propertyKey}, tempo de execução: ${(endTime - startTime) / divider} ${kindUnit}.`);
             result;
         };
         return descriptor;
     };
 }
+//# sourceMappingURL=executiontimelogger.js.map

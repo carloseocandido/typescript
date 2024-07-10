@@ -11,7 +11,7 @@ export function executionTimeLogger(isSeconds: boolean = false) {
             const startTime  = performance.now();
             const result = baseMethod.apply(this, args);
             const endTime = performance.now();
-            console.log(`${propertyKey}, tempo de execução: ${(endTime - startTime )/divider} ${kindUnit}.`)
+            // console.log(`${propertyKey}, tempo de execução: ${(endTime - startTime )/divider} ${kindUnit}.`)
             result;
         };
 

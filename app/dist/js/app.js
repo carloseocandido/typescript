@@ -10,3 +10,13 @@ if (form) {
 else {
     throw Error('Não foi possível iniciar a aplicação, verifique se o form existe');
 }
+const buttonImport = document.querySelector('#btn-import');
+if (buttonImport) {
+    buttonImport.addEventListener('click', () => {
+        controller.importData();
+    });
+}
+else {
+    throw Error('Botão btn-import não encontrado');
+}
+//# sourceMappingURL=app.js.map
